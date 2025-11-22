@@ -14,7 +14,6 @@ export default function ClockPage() {
   const [inputMinutes, setInputMinutes] = useState("5");
   const [inputSeconds, setInputSeconds] = useState("0");
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
     if (isRunning && remainingSeconds > 0) {
@@ -45,7 +44,7 @@ export default function ClockPage() {
   const playCompletionSound = () => {
     // Create a simple beep sound using Web Audio API
     if (typeof window !== "undefined") {
-      const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+      const audioContext = new (window.AudioContext || (window as typeof window & { webkitAudioContext: typeof AudioContext }).webkitAudioContext)();
       const oscillator = audioContext.createOscillator();
       const gainNode = audioContext.createGain();
 
@@ -162,7 +161,7 @@ export default function ClockPage() {
                 {/* Status Message */}
                 {urgency === "complete" && (
                   <div className="mt-6 text-2xl font-semibold text-green-500 animate-pulse">
-                    Time's Up!
+                    Time&apos;s Up!
                   </div>
                 )}
                 {urgency === "critical" && isRunning && (
