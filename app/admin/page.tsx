@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import {
@@ -22,7 +22,7 @@ import { Competitor } from "@/lib/types/competitor";
 import { Challenge } from "@/lib/types/challenge";
 import { AppState } from "@/lib/types/app-state";
 
-export default function AdminPage() {
+function AdminPageContent() {
   const searchParams = useSearchParams();
   const key = searchParams.get("key");
   const [loading, setLoading] = useState(false);
@@ -406,5 +406,19 @@ export default function AdminPage() {
         )}
       </div>
     </div>
+  );
+}
+
+export default function AdminPage() {
+  return (
+    <Suspense fallback={
+      <div className="container mx-auto px-4 py-12">
+        <div className="max-w-2xl mx-auto text-center">
+          <p className="text-lg text-muted-foreground">Loading...</p>
+        </div>
+      </div>
+    }>
+      <AdminPageContent />
+    </Suspense>
   );
 }
