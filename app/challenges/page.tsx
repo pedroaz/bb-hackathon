@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { Challenge } from "@/lib/types/challenge";
 import { AppState } from "@/lib/types/app-state";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Lock } from "lucide-react";
 
@@ -50,7 +50,7 @@ export default function ChallengesPage() {
             <div className="flex items-center gap-2">
               <Lock className="w-5 h-5 text-orange-600" />
               <p className="font-medium text-orange-600">
-                Hackathon hasn't started yet!
+                Hackathon hasn&apos;t started yet!
               </p>
             </div>
             <p className="text-sm text-muted-foreground mt-1">

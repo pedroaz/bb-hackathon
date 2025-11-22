@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Clock, Users, Lightbulb, Trophy } from "lucide-react";
 
 const agendaItems = [
@@ -48,7 +48,7 @@ export default function AgendaPage() {
           Agenda
         </h1>
         <p className="text-muted-foreground text-lg mb-8">
-          Follow the event schedule and don't miss any activities!
+          Follow the event schedule and don&apos;t miss any activities!
         </p>
 
         <div className="space-y-4">

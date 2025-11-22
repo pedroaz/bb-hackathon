@@ -42,6 +42,24 @@ export async function POST() {
         points: 5,
         createdAt: new Date(),
       },
+      {
+        name: "Make Genz Happy",
+        description: "Post a video about the app in Tiktok",
+        points: 5,
+        createdAt: new Date(),
+      },
+      {
+        name: "I am not alone!",
+        description: "Come to the Hackathon!",
+        points: 5,
+        createdAt: new Date(),
+      },
+      {
+        name: "Hug Train",
+        description: "Receive a Hug from the Hug Train",
+        points: 5,
+        createdAt: new Date(),
+      },
     ];
 
     const defaultAppState = {
