@@ -5,17 +5,17 @@ const agendaItems = [
   {
     time: "17:00",
     title: "We Gather",
-    description: "Welcome and registration. Meet your fellow competitors!",
+    description: "Welcome!",
     icon: Users,
   },
   {
-    time: "17:15",
+    time: "17:10",
     title: "Ideas Are Presented",
     description: "Pitch your ideas and hear what others have in mind.",
     icon: Lightbulb,
   },
   {
-    time: "17:15 - 17:30",
+    time: "17:20 - 17:30",
     title: "Groups Are Formed",
     description: "Team up with other participants and form your hackathon squad.",
     icon: Users,

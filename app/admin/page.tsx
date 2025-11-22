@@ -18,6 +18,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Competitor } from "@/lib/types/competitor";
 import { Challenge } from "@/lib/types/challenge";
 import { AppState } from "@/lib/types/app-state";
@@ -30,7 +31,7 @@ function AdminPageContent() {
   const [competitors, setCompetitors] = useState<Competitor[]>([]);
   const [challenges, setChallenges] = useState<Challenge[]>([]);
   const [appState, setAppState] = useState<AppState | null>(null);
-  const [selectedCompetitor, setSelectedCompetitor] = useState<string>("");
+  const [selectedCompetitors, setSelectedCompetitors] = useState<string[]>([]);
   const [selectedChallenge, setSelectedChallenge] = useState<string>("");
 
   useEffect(() => {
@@ -94,8 +95,8 @@ function AdminPageContent() {
   };
 
   const handleCompleteChallenge = async () => {
-    if (!selectedCompetitor || !selectedChallenge) {
-      setMessage("❌ Please select both a competitor and a challenge.");
+    if (selectedCompetitors.length === 0 || !selectedChallenge) {
+      setMessage("❌ Please select at least one competitor and a challenge.");
       return;
     }
 
@@ -103,33 +104,67 @@ function AdminPageContent() {
     setMessage("");
 
     try {
-      const response = await fetch("/api/admin/complete-challenge", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          competitorId: selectedCompetitor,
-          challengeId: selectedChallenge,
-        }),
-      });
+      // Process each competitor sequentially
+      const results = [];
+      for (const competitorId of selectedCompetitors) {
+        const response = await fetch("/api/admin/complete-challenge", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            competitorId,
+            challengeId: selectedChallenge,
+          }),
+        });
 
-      const data = await response.json();
+        const data = await response.json();
+        results.push({
+          success: response.ok,
+          competitorId,
+          data,
+        });
+      }
 
-      if (response.ok) {
+      // Check results
+      const successCount = results.filter((r) => r.success).length;
+      const failCount = results.length - successCount;
+
+      if (successCount > 0) {
+        const totalPoints = results
+          .filter((r) => r.success)
+          .reduce((sum, r) => sum + (r.data.pointsAwarded || 0), 0);
         setMessage(
-          `✅ Challenge completed! ${data.pointsAwarded} points awarded.`
+          `✅ Challenge completed for ${successCount} competitor(s)! ${totalPoints} total points awarded.${
+            failCount > 0 ? ` ${failCount} failed.` : ""
+          }`
         );
         fetchData();
-        setSelectedCompetitor("");
+        setSelectedCompetitors([]);
         setSelectedChallenge("");
       } else {
-        setMessage(`❌ Error: ${data.error}`);
+        setMessage(`❌ Failed to complete challenge for all selected competitors.`);
       }
     } catch (error) {
       setMessage("❌ Failed to complete challenge. Please try again.");
     } finally {
       setLoading(false);
+    }
+  };
+
+  const toggleCompetitor = (competitorId: string) => {
+    setSelectedCompetitors((prev) =>
+      prev.includes(competitorId)
+        ? prev.filter((id) => id !== competitorId)
+        : [...prev, competitorId]
+    );
+  };
+
+  const selectAllCompetitors = () => {
+    if (selectedCompetitors.length === competitors.length) {
+      setSelectedCompetitors([]);
+    } else {
+      setSelectedCompetitors(competitors.map((c) => c._id || "").filter(Boolean));
     }
   };
 
@@ -314,32 +349,54 @@ function AdminPageContent() {
           <CardHeader>
             <CardTitle>Complete Challenge</CardTitle>
             <CardDescription>
-              Select a competitor and a challenge they have completed to award
-              points.
+              Select competitors and a challenge to award points to multiple people at once.
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="space-y-4">
               <div className="space-y-2">
-                <label className="text-sm font-medium">Competitor</label>
-                <Select
-                  value={selectedCompetitor}
-                  onValueChange={setSelectedCompetitor}
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select competitor" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {competitors.map((competitor) => (
-                      <SelectItem
-                        key={competitor._id}
-                        value={competitor._id || ""}
-                      >
-                        {competitor.name} ({competitor.points} pts)
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                <div className="flex items-center justify-between">
+                  <label className="text-sm font-medium">
+                    Competitors ({selectedCompetitors.length} selected)
+                  </label>
+                  <Button
+                    onClick={selectAllCompetitors}
+                    variant="outline"
+                    size="sm"
+                    type="button"
+                  >
+                    {selectedCompetitors.length === competitors.length
+                      ? "Deselect All"
+                      : "Select All"}
+                  </Button>
+                </div>
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 p-4 rounded-lg bg-muted/50 max-h-[400px] overflow-y-auto">
+                  {competitors.map((competitor) => (
+                    <div
+                      key={competitor._id}
+                      className={`flex items-center space-x-3 p-3 rounded-md border-2 transition-colors cursor-pointer hover:bg-background/80 ${
+                        selectedCompetitors.includes(competitor._id || "")
+                          ? "border-primary bg-primary/5"
+                          : "border-border bg-background"
+                      }`}
+                      onClick={() => toggleCompetitor(competitor._id || "")}
+                    >
+                      <Checkbox
+                        checked={selectedCompetitors.includes(competitor._id || "")}
+                        onCheckedChange={() => toggleCompetitor(competitor._id || "")}
+                        className="pointer-events-none"
+                      />
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-medium truncate">
+                          {competitor.name}
+                        </p>
+                        <p className="text-xs text-muted-foreground">
+                          {competitor.points} pts
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
 
               <div className="space-y-2">
@@ -367,11 +424,11 @@ function AdminPageContent() {
 
             <Button
               onClick={handleCompleteChallenge}
-              disabled={loading || !selectedCompetitor || !selectedChallenge}
+              disabled={loading || selectedCompetitors.length === 0 || !selectedChallenge}
               size="lg"
               className="w-full"
             >
-              {loading ? "Processing..." : "Mark as Completed"}
+              {loading ? "Processing..." : `Mark as Completed for ${selectedCompetitors.length} Competitor${selectedCompetitors.length !== 1 ? "s" : ""}`}
             </Button>
           </CardContent>
         </Card>

@@ -6,10 +6,10 @@ import { cn } from "@/lib/utils";
 
 const navItems = [
   { href: "/", label: "Home" },
+  { href: "/agenda", label: "Agenda" },
   { href: "/competitors", label: "Competitors" },
   { href: "/leaderboards", label: "Leaderboards" },
   { href: "/challenges", label: "Challenges" },
-  { href: "/agenda", label: "Agenda" },
 ];
 
 export function Navbar() {
