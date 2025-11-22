@@ -8,7 +8,6 @@ export async function GET() {
     const competitors = await db
       .collection("competitors")
       .find({})
-      .sort({ createdAt: -1 })
       .toArray();
 
     const serializedCompetitors = competitors.map((competitor) => ({

@@ -22,19 +22,20 @@ const agendaItems = [
   },
   {
     time: "18:00",
-    title: "Event 1",
+    title: "Event 1 (#WeAreAllRevOps)", // Formal App Idea. Like you are trying to make BB build the app. 
     description: "Details will be announced at the event!",
     icon: Trophy,
   },
+
   {
     time: "18:30",
-    title: "Event 2",
+    title: "Event 2 (#WhatIsADesignerAndWhatIsATechie)", // Submit Design Document. Tech, archtecture decisions, how to scale, costs etc
     description: "Details will be announced at the event!",
     icon: Trophy,
   },
   {
     time: "19:00",
-    title: "Event 3",
+    title: "Event 3 (#ConsultingLifeMakeTheMenyComeOutOfTheSky)", // Presentation + Show Prototype
     description: "Details will be announced at the event!",
     icon: Trophy,
   },
