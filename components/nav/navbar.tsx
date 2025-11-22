@@ -10,6 +10,7 @@ const navItems = [
   { href: "/competitors", label: "Competitors" },
   { href: "/leaderboards", label: "Leaderboards" },
   { href: "/challenges", label: "Challenges" },
+  { href: "/prizes", label: "Prizes" },
 ];
 
 export function Navbar() {

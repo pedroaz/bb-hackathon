@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Card, CardContent } from "@/components/ui/card";
-import { Trophy, Users, Target, Calendar } from "lucide-react";
+import { Trophy, Users, Target, Calendar, Gift } from "lucide-react";
 
 const navigationCards = [
   {
@@ -24,6 +24,13 @@ const navigationCards = [
     href: "/challenges",
     icon: Target,
     gradient: "from-primary to-accent",
+  },
+  {
+    title: "Prizes",
+    description: "Discover amazing rewards",
+    href: "/prizes",
+    icon: Gift,
+    gradient: "from-accent/70 to-primary/70",
   },
   {
     title: "Agenda",
