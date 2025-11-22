@@ -35,7 +35,7 @@ function AdminPageContent() {
   const [selectedChallenge, setSelectedChallenge] = useState<string>("");
 
   useEffect(() => {
-    if (key === "123") {
+    if (key === "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855") {
       fetchData();
     }
   }, [key]);
@@ -135,8 +135,7 @@ function AdminPageContent() {
           .filter((r) => r.success)
           .reduce((sum, r) => sum + (r.data.pointsAwarded || 0), 0);
         setMessage(
-          `✅ Challenge completed for ${successCount} competitor(s)! ${totalPoints} total points awarded.${
-            failCount > 0 ? ` ${failCount} failed.` : ""
+          `✅ Challenge completed for ${successCount} competitor(s)! ${totalPoints} total points awarded.${failCount > 0 ? ` ${failCount} failed.` : ""
           }`
         );
         fetchData();
@@ -220,7 +219,7 @@ function AdminPageContent() {
     }
   };
 
-  if (key !== "123") {
+  if (key !== "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855") {
     return (
       <div className="container mx-auto px-4 py-12">
         <div className="max-w-2xl mx-auto text-center space-y-6">
@@ -285,8 +284,8 @@ function AdminPageContent() {
               {loading
                 ? "Updating..."
                 : appState?.started
-                ? "Pause Hackathon"
-                : "Start Hackathon"}
+                  ? "Pause Hackathon"
+                  : "Start Hackathon"}
             </Button>
           </CardContent>
         </Card>
@@ -374,11 +373,10 @@ function AdminPageContent() {
                   {competitors.map((competitor) => (
                     <div
                       key={competitor._id}
-                      className={`flex items-center space-x-3 p-3 rounded-md border-2 transition-colors cursor-pointer hover:bg-background/80 ${
-                        selectedCompetitors.includes(competitor._id || "")
-                          ? "border-primary bg-primary/5"
-                          : "border-border bg-background"
-                      }`}
+                      className={`flex items-center space-x-3 p-3 rounded-md border-2 transition-colors cursor-pointer hover:bg-background/80 ${selectedCompetitors.includes(competitor._id || "")
+                        ? "border-primary bg-primary/5"
+                        : "border-border bg-background"
+                        }`}
                       onClick={() => toggleCompetitor(competitor._id || "")}
                     >
                       <Checkbox

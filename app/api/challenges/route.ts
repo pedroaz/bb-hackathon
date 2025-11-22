@@ -8,7 +8,6 @@ export async function GET() {
     const challenges = await db
       .collection("challenges")
       .find({})
-      .sort({ createdAt: -1 })
       .toArray();
 
     const serializedChallenges = challenges.map((challenge) => ({

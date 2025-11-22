@@ -151,6 +151,12 @@ export async function POST() {
 
     const defaultChallenges = [
       {
+        name: "Accept on Teams!",
+        description: "Clicked Accept",
+        points: 1,
+        createdAt: new Date(),
+      },
+      {
         name: "I am not alone!",
         description: "Come to the Hackathon!",
         points: 5,
@@ -165,19 +171,19 @@ export async function POST() {
       {
         name: "Guess the body part",
         description: "Can you guess who this forehead belongs to? Show us your detective skills!",
-        points: 3,
+        points: 10,
         createdAt: new Date(),
       },
       {
         name: "Who needs a keyboard?",
         description: "Code a feature of your app using your phone.",
-        points: 3,
+        points: 15,
         createdAt: new Date(),
       },
       {
         name: "We are old. Old school.",
         description: "Add an old school design element to your app.",
-        points: 3,
+        points: 5,
         createdAt: new Date(),
       },
       {
@@ -189,19 +195,49 @@ export async function POST() {
       {
         name: "Beep boop, I am a programmer",
         description: "Add assembly to your codebase",
-        points: 5,
+        points: 15,
         createdAt: new Date(),
       },
       {
         name: "Make Genz Happy",
         description: "Post a video about the app in Tiktok",
-        points: 5,
+        points: 20,
         createdAt: new Date(),
       },
       {
         name: "Hug Train",
         description: "Receive a Hug from the Hug Train",
         points: 5,
+        createdAt: new Date(),
+      },
+      {
+        name: "Scope Creep",
+        description: "Receive Scope Creep from Fred",
+        points: 3,
+        createdAt: new Date(),
+      },
+      {
+        name: "Chug, Chug, Chug!",
+        description: "It does not need to be alcoholic. Just chug a drink of your choice!",
+        points: 4,
+        createdAt: new Date(),
+      },
+      {
+        name: "Winner of Challenge 1",
+        description: "You won the first challenge!",
+        points: 10,
+        createdAt: new Date(),
+      },
+      {
+        name: "Winner of Challenge 2",
+        description: "You won the second challenge!",
+        points: 15,
+        createdAt: new Date(),
+      },
+      {
+        name: "Winner of Challenge 3",
+        description: "You won the third challenge!",
+        points: 20,
         createdAt: new Date(),
       },
     ];
