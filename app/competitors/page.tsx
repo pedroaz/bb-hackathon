@@ -42,33 +42,33 @@ export default function CompetitorsPage() {
             No competitors yet. Add some from the admin panel.
           </p>
         ) : (
-          <div className="grid gap-6 md:grid-cols-2">
+          <div className="grid gap-6">
             {competitors.map((competitor) => (
               <Card key={competitor._id} className="hover:shadow-lg transition-shadow">
-                <CardHeader>
-                  <div className="flex items-center gap-4">
+                <CardHeader className="p-6">
+                  <div className="flex gap-6">
                     {competitor.image ? (
                       <img
                         src={competitor.image}
                         alt={competitor.name}
-                        className="w-16 h-16 rounded-full object-cover"
+                        className="w-32 h-32 rounded-lg object-cover flex-shrink-0"
                       />
                     ) : (
-                      <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center">
-                        <User className="w-8 h-8 text-white" />
+                      <div className="w-32 h-32 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center flex-shrink-0">
+                        <User className="w-16 h-16 text-white" />
                       </div>
                     )}
-                    <div>
-                      <CardTitle className="text-xl">{competitor.name}</CardTitle>
+                    <div className="flex-1 space-y-3">
+                      <CardTitle className="text-2xl">{competitor.name}</CardTitle>
+                      <div className="space-y-2">
+                        <p className="text-sm font-medium text-primary">
+                          When approached about the hackathon:
+                        </p>
+                        <CardDescription className="text-base">
+                          {competitor.reason}
+                        </CardDescription>
+                      </div>
                     </div>
-                  </div>
-                  <div className="mt-3 space-y-2">
-                    <p className="text-sm font-medium text-primary">
-                      When approached about the hackathon:
-                    </p>
-                    <CardDescription>
-                      {competitor.reason}
-                    </CardDescription>
                   </div>
                 </CardHeader>
               </Card>

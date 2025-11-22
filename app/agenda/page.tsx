@@ -35,7 +35,7 @@ const agendaItems = [
   },
   {
     time: "19:00",
-    title: "Event 3 (#ConsultingLifeMakeTheMenyComeOutOfTheSky)", // Presentation + Show Prototype
+    title: "Event 3 (#ConsultingLifeMakeTheMoneyComeOutOfTheSky)", // Presentation + Show Prototype
     description: "Details will be announced at the event!",
     icon: Trophy,
   },
