@@ -1,9 +1,16 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Card, CardContent } from "@/components/ui/card";
-import { Trophy, Users, Target, Calendar, Gift } from "lucide-react";
+import { Trophy, Users, Target, Calendar, Gift, BookOpen } from "lucide-react";
 
 const navigationCards = [
+  {
+    title: "Rules",
+    description: "Review hackathon rules and guidelines",
+    href: "/rules",
+    icon: BookOpen,
+    gradient: "from-primary/70 to-accent/70",
+  },
   {
     title: "Competitors",
     description: "View all hackathon participants",
@@ -51,7 +58,7 @@ export default function Home() {
               Berlin Byes Hackathon
             </h1>
             <p className="text-muted-foreground text-lg">
-              Innovation, Collaboration, Excellence
+              #67
             </p>
           </div>
         </div>

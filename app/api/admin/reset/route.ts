@@ -182,7 +182,13 @@ export async function POST() {
       },
       {
         name: "We are old. Old school.",
-        description: "Add an old school design element to your app.",
+        description: "Make one asset of your app using Microsoft Paint.",
+        points: 5,
+        createdAt: new Date(),
+      },
+      {
+        name: "Das ist Berlin!",
+        description: "Add sound effects to your app, because #Techno",
         points: 5,
         createdAt: new Date(),
       },
@@ -205,9 +211,9 @@ export async function POST() {
         createdAt: new Date(),
       },
       {
-        name: "Hug Train",
-        description: "Receive a Hug from the Hug Train",
-        points: 5,
+        name: "Make Boomers Happy",
+        description: "Post a video about the app in Whatsapp status",
+        points: 20,
         createdAt: new Date(),
       },
       {
@@ -223,21 +229,27 @@ export async function POST() {
         createdAt: new Date(),
       },
       {
-        name: "Winner of Challenge 1",
-        description: "You won the first challenge!",
+        name: "Winner of Event 1",
+        description: "Be part of the team who wins the first event!",
         points: 10,
         createdAt: new Date(),
       },
       {
-        name: "Winner of Challenge 2",
-        description: "You won the second challenge!",
+        name: "Winner of Event 2",
+        description: "Be part of the team who wins the second event!",
         points: 15,
         createdAt: new Date(),
       },
       {
-        name: "Winner of Challenge 3",
-        description: "You won the third challenge!",
+        name: "Winner of Event 3",
+        description: "Be part of the team who wins the third event!",
         points: 20,
+        createdAt: new Date(),
+      },
+      {
+        name: "Hack the Hackathon",
+        description: "Enter the admin screen and give yourself this award! Tip: Follow the admin path",
+        points: 10,
         createdAt: new Date(),
       },
     ];
