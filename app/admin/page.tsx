@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect, Suspense } from "react";
-import { useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -24,8 +23,6 @@ import { Challenge } from "@/lib/types/challenge";
 import { AppState } from "@/lib/types/app-state";
 
 function AdminPageContent() {
-  const searchParams = useSearchParams();
-  const key = searchParams.get("key");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [competitors, setCompetitors] = useState<Competitor[]>([]);
@@ -33,12 +30,44 @@ function AdminPageContent() {
   const [appState, setAppState] = useState<AppState | null>(null);
   const [selectedCompetitors, setSelectedCompetitors] = useState<string[]>([]);
   const [selectedChallenge, setSelectedChallenge] = useState<string>("");
+  const [isAuthorized, setIsAuthorized] = useState<boolean | null>(null);
 
   useEffect(() => {
-    if (key === "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855") {
-      fetchData();
+    checkAuth();
+  }, []);
+
+  const checkAuth = async () => {
+    try {
+      const response = await fetch("/api/admin/verify");
+      const data = await response.json();
+
+      if (data.authorized) {
+        setIsAuthorized(true);
+        fetchData();
+      } else {
+        setIsAuthorized(false);
+      }
+    } catch (error) {
+      console.error("Auth check failed:", error);
+      setIsAuthorized(false);
     }
-  }, [key]);
+  };
+
+  const requestToken = async () => {
+    setLoading(true);
+    try {
+      await fetch("/api/auth/token", { method: "POST" });
+      setMessage(
+        "Token generated! However, you only have 'user' access. You need 'admin' access to proceed."
+      );
+      // Recheck auth after getting token
+      setTimeout(() => checkAuth(), 500);
+    } catch (error) {
+      setMessage("Failed to generate token");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const fetchData = async () => {
     try {
@@ -219,21 +248,41 @@ function AdminPageContent() {
     }
   };
 
-  if (key !== "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855") {
+  if (isAuthorized === null) {
+    return (
+      <div className="container mx-auto px-4 py-12">
+        <div className="max-w-2xl mx-auto text-center">
+          <p className="text-lg text-muted-foreground">Checking authorization...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (isAuthorized === false) {
     return (
       <div className="container mx-auto px-4 py-12">
         <div className="max-w-2xl mx-auto text-center space-y-6">
           <h1 className="text-4xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-            Access Denied
+            Admin Access Required
           </h1>
           <Card>
-            <CardContent className="p-12">
+            <CardContent className="p-12 space-y-6">
               <p className="text-lg text-muted-foreground">
-                You need the correct access key to view this page.
+                You need admin authentication to access this panel.
               </p>
-              <p className="text-sm text-muted-foreground mt-2">
-                Please use the correct URL with the key parameter.
-              </p>
+              <Button
+                onClick={requestToken}
+                disabled={loading}
+                size="lg"
+                className="w-full"
+              >
+                {loading ? "Generating..." : "Request Access Token"}
+              </Button>
+              {message && (
+                <div className="p-4 rounded-md bg-muted">
+                  <p className="text-sm">{message}</p>
+                </div>
+              )}
             </CardContent>
           </Card>
         </div>

@@ -1,7 +1,11 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import clientPromise from "@/lib/mongodb";
+import { checkAdminAuth } from "@/lib/admin-auth";
 
-export async function POST() {
+export async function POST(request: NextRequest) {
+  const authError = checkAdminAuth(request);
+  if (authError) return authError;
+
   try {
     const client = await clientPromise;
     const db = client.db("hackathon");

@@ -1,8 +1,12 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import clientPromise from "@/lib/mongodb";
 import { ObjectId } from "mongodb";
+import { checkAdminAuth } from "@/lib/admin-auth";
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
+  const authError = checkAdminAuth(request);
+  if (authError) return authError;
+
   try {
     const { competitorId, challengeId } = await request.json();
 
