@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Berlin Byes Hackathon",
-  description: "Official portal for the Berlin Byes Hackathon",
+  title: "Berlin Bytes Hackathon",
+  description: "Official portal for the Berlin Bytes Hackathon",
 };
 
 export default function RootLayout({

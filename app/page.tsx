@@ -55,7 +55,7 @@ export default function Home() {
         <div className="flex flex-col items-center space-y-6 text-center">
           <div className="space-y-2">
             <h1 className="text-5xl font-bold bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent animate-fade-in">
-              Berlin Byes Hackathon
+              Berlin Bytes Hackathon
             </h1>
             <p className="text-muted-foreground text-lg">
               #67

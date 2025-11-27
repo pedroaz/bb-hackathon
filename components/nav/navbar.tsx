@@ -23,7 +23,7 @@ export function Navbar() {
         <div className="flex h-16 items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
             <span className="text-lg font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-              Berlin Byes Hackathon
+              Berlin Bytes Hackathon
             </span>
           </Link>
           <div className="flex items-center gap-1">
