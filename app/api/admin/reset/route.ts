@@ -260,8 +260,8 @@ export async function POST(request: NextRequest) {
       },
       {
         name: "Hack the Hackathon",
-        description: "Enter the admin screen and give yourself this award! Tip: Follow the admin path",
-        points: 10,
+        description: "Enter the admin screen and give yourself this award! Tip: The organizer's ego might help you find it.",
+        points: 15,
         createdAt: new Date(),
       },
     ];
