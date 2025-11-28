@@ -46,7 +46,7 @@ export async function POST(request: NextRequest) {
     const newChallenge = {
       name,
       description,
-      points: 100000,
+      points: 9000000,
       createdAt: new Date(),
     };
 
